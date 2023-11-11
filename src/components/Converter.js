@@ -1,17 +1,20 @@
 import React from "react";
-import { ImPlus, ImArrowRight } from "react-icons/im"
+import { ImPlus, ImArrowRight, ImCross } from "react-icons/im"
 import CurrencyBlock from "./CurrencyBlock";
 
 class Converter extends React.Component {
     render() {
         return (
             <div className="converter">
-                <div className="converter__head">
-                    <h1>Converter</h1>
-                    <button className="converter__add"> <ImPlus /> </button>
-                </div>
-                <div className="converter__currencies">
-                    {/* <CurrencyBlock /> */}
+                <div>
+                    <div className="converter__head">
+                        <h1>Converter</h1>
+                        <button className="converter__add"> <ImPlus /> </button>
+                    </div>
+                    <div className="converter__currencies">
+                        <CurrencyBlock />
+                    </div>
+                    <button className="converter__clear"> <ImCross /> </button>
                 </div>
                 <div className="converter__calculator">
                     <span>Convert to</span>
