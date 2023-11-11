@@ -1,0 +1,54 @@
+header
+    background-color: $primary-color
+
+.header
+    width: 100%
+    padding: 1.5rem 0
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+.header__about-button
+    display: flex
+    gap: 1rem
+    align-items: center
+
+    & p
+        font-size: 2rem
+
+    & svg
+        width: 2.2rem
+        height: 2.2rem
+
+.header__about
+    font-size: 1.5rem
+    padding: 0 6rem 2rem 6rem
+    transition: all 0.9s ease
+
+.rotate
+    animation-name: rotation
+    animation-duration: 0.2s
+    animation-timing-function: linear
+    animation-fill-mode: forwards
+
+.rotate-reverse
+    animation-name: rotation
+    animation-duration: 0.2s
+    animation-timing-function: linear
+    animation-fill-mode: forwards
+    animation-direction: reverse
+
+@keyframes rotation
+    from
+        transform: rotate(0deg)
+    to
+        transform: rotate(180deg)
+        
+
+@media (min-width: 768px)
+    .header__about-button:hover
+        cursor: pointer
+        color: $background-color
+
+        svg
+            fill: $background-color

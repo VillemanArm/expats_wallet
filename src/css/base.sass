@@ -1,4 +1,4 @@
-
+// TODO: add fonts from files
 
 /*# sourceMappingURL=style.sass.map */
 
@@ -11,11 +11,12 @@
 //     font-weight: 700
 
 
-// $header-font: Roboto
-// $primary-color: #FFFBF5
-// $second-color: #F0B94D
-// $background-color: #37343A
-// $block-color: #636362
+$header1-font: 'Neucha'
+$text-color: #FFF
+$primary-color: #dc7c48
+$secondary-color: #2b5a5c
+$background-color: #2b5a5c
+$footer-color: #636362
 // $dark-background-color: #333036
 // $input-background: #63666e
 // $basic-font-size: 2.4rem
@@ -31,21 +32,23 @@ html
     font-size: 10px
 
 
-// body
-//     background-color: $background-color
-//     font-family: 'Inter', sans-serif
-//     color: $primary-color
+body
+    background-color: $background-color
+    font-family: 'Ubuntu', sans-serif
+    font-weight: 400
+    color: $text-color
 
 // a
 //     color: $primary-color
 //     text-decoration: none
 
 
-// h1
-//     padding-bottom: 2.7rem
+h1
+    margin: 0
 
-//     font-family: $header-font
-//     font-size: 6.6rem
+    font-family: $header1-font
+    font-size: 4rem
+    font-weight: 300
 
 
 // h2 
@@ -68,25 +71,32 @@ img
     object-fit: contain
 
 .container
-    width: 120em
+    width: 120rem
     margin-left: auto
     margin-right: auto
 
-// button
-//     display: block
-//     padding: 1.4rem 3.1rem
-//     box-sizing: border-box
+.main-block__wrapper
+    padding: 4rem 0
+    display: flex
+    justify-content: space-between
 
-//     font-size: 2.7rem
+button
+    width: 5.6rem
+    height: 3.4rem
+    box-sizing: border-box
 
-//     background-color: $second-color
-//     border: 0.3rem solid $second-color
-//     border-radius: 1.1rem
-//     color: $primary-color
+    // background-color: $second-color
+    border: none
+    border-radius: 0.8rem
 
-@media (max-width: 82em)
+    & svg
+        width: 1.6rem
+        height: 1.6rem
+
+
+@media (max-width: 1240px)
     html 
-        font-size: 0.7692307692307692vw
+        font-size: 0.8064516129032258vw
 
     .container
         width: 120rem
@@ -130,6 +140,9 @@ img
 
     //     border-radius: 0.8rem
 
-// @import blocks/header
+@import components/Header
+@import components/Logo
+@import components/Converter
+@import components/History
 
 
