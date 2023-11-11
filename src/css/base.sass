@@ -101,10 +101,12 @@ button
     .container
         width: 120rem
 
-// @media (min-width: 48em)    
-//     button:hover
-//         background-color: transparent
-//         color: $second-color
+@media (min-width: 768px)    
+    button:hover
+        background-color: $secondary-color
+        
+        & svg
+            fill: $text-color
 
 //     a:hover
 //         text-decoration: underline
@@ -144,5 +146,6 @@ button
 @import components/Logo
 @import components/Converter
 @import components/History
+@import components/CurrencyBlock
 
 
