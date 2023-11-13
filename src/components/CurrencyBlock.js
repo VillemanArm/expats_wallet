@@ -1,5 +1,6 @@
 import React from "react";
 import { ImMinus } from "react-icons/im"
+import Selector from "./Selector";
 
 
 class CurrencyBlock extends React.Component {
@@ -8,12 +9,7 @@ class CurrencyBlock extends React.Component {
             <div className="currency-block">
                 <div>
                     <span>Currency</span>
-                    <select className="converter__target-currency">
-
-                        <option value="none" selected></option>
-                        <option value="RUB" selected>RUB</option>
-                        <option value="USD" selected>USD</option>
-                    </select>
+                    <Selector optionsList={this.props.currencies} />
                     <span>amount</span>
                     <input type="text" className="currency-block__amount" />
                 </div>
