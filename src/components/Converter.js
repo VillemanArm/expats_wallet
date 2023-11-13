@@ -10,11 +10,13 @@ class Converter extends React.Component {
     constructor(props) {
         super(props)
 
-
-
         this.state = {
             rates: ''
         }
+
+        this.getRates()
+
+        this.getRates = this.getRates.bind(this)
     }
 
 
@@ -26,7 +28,8 @@ class Converter extends React.Component {
 
         axios.get(url)
             .then(res => {
-                console.log(res.data.rates)
+                this.setState({ rates: res.data.rates })
+
             })
             .catch(err => console.log(err))
 
@@ -34,7 +37,7 @@ class Converter extends React.Component {
 
     render() {
         return (
-            <div className="converter" onLoad={this.getRates()}>
+            <div className="converter">
                 <div>
                     <div className="converter__head">
                         <h1>Converter</h1>
