@@ -12,13 +12,21 @@ class Converter extends React.Component {
         super(props)
 
         this.state = {
-            rates: ''
+            rates: '',
+            currencies: [
+                {
+                    id: 1,
+                    currency: 'none',
+                    amount: 0
+                }
+            ]
 
         }
 
         this.getRates()
 
         this.getRates = this.getRates.bind(this)
+        this.addCurrency = this.addCurrency.bind(this)
     }
 
 
@@ -36,16 +44,36 @@ class Converter extends React.Component {
 
     }
 
+    addCurrency() {
+        let currencyList = this.state.currencies
+        // console.log(this.state.currencies)
+        currencyList.push({
+            id: currencyList[currencyList.length - 1].id + 1,
+            currency: 'none',
+            amount: 0
+        })
+        this.setState({ currencies: [] }, () => {
+            this.setState({ currencies: [...currencyList] })
+        })
+    }
+
+
+
     render() {
         return (
             <div className="converter">
                 <div>
                     <div className="converter__head">
                         <h1>Converter</h1>
-                        <button className="converter__add"> <ImPlus /> </button>
+                        <button className="converter__add" onClick={this.addCurrency}> <ImPlus /> </button>
                     </div>
                     <div className="converter__currencies">
-                        <CurrencyBlock currencies={Object.keys(this.state.rates)} />
+                        {this.state.currencies.map((currency) => {
+                            return (
+                                <CurrencyBlock key={currency.id} currencies={Object.keys(this.state.rates)} />
+
+                            )
+                        })}
                     </div>
                     <button className="converter__clear"> <ImCross /> </button>
                 </div>
