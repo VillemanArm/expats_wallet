@@ -27,6 +27,7 @@ class Converter extends React.Component {
 
         this.getRates = this.getRates.bind(this)
         this.addCurrency = this.addCurrency.bind(this)
+        this.clearCurrencies = this.clearCurrencies.bind(this)
     }
 
 
@@ -57,7 +58,19 @@ class Converter extends React.Component {
         })
     }
 
-
+    clearCurrencies() {
+        this.setState({ currencies: [] }, () => {
+            this.setState({
+                currencies: [
+                    {
+                        id: 1,
+                        currency: 'none',
+                        amount: 0
+                    }
+                ]
+            })
+        })
+    }
 
     render() {
         return (
@@ -75,7 +88,7 @@ class Converter extends React.Component {
                             )
                         })}
                     </div>
-                    <button className="converter__clear"> <ImCross /> </button>
+                    <button className="converter__clear" onClick={this.clearCurrencies}> <ImCross /> </button>
                 </div>
                 <div className="converter__calculator">
                     <span>Convert to</span>
