@@ -13,10 +13,18 @@ class CurrencyBlock extends React.Component {
                     <span>Currency</span>
                     <Selector optionsList={this.props.currencies} currentValue={this.currency.currency} />
                     <span>amount</span>
-                    <input type="text" className="currency-block__amount" defaultValue={this.currency.amount} />
+                    <input
+                        type="text"
+                        className="currency-block__amount"
+                        ref={(element) => this.amountInput = element}
+                        defaultValue={this.currency.amount}
+                        onBlur={() => {
+                            this.currency.amount = this.amountInput.value
+                            this.props.onEdit(this.currency)
+                        }} />
                 </div>
 
-                {this.currency.id !== 1 &&
+                {this.props.currenciesAmount !== 1 &&
                     <button
                         className="currency-block__del"
                         onClick={(e) => {
