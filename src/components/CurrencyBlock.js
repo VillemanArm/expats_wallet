@@ -11,9 +11,9 @@ class CurrencyBlock extends React.Component {
             <div className="currency-block">
                 <div>
                     <span>Currency</span>
-                    <Selector optionsList={this.props.currencies} />
+                    <Selector optionsList={this.props.currencies} currentValue={this.currency.currency} />
                     <span>amount</span>
-                    <input type="text" className="currency-block__amount" />
+                    <input type="text" className="currency-block__amount" defaultValue={this.currency.amount} />
                 </div>
 
                 {this.currency.id !== 1 &&
