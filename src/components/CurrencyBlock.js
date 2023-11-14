@@ -16,11 +16,14 @@ class CurrencyBlock extends React.Component {
                     <input type="text" className="currency-block__amount" />
                 </div>
 
-                <button
-                    className="currency-block__del"
-                    onClick={(e) => {
-                        this.props.del(this.currency.id)
-                    }}> <ImMinus /> </button>
+                {this.currency.id !== 1 &&
+                    <button
+                        className="currency-block__del"
+                        onClick={(e) => {
+                            this.props.del(this.currency.id)
+                        }}>
+                        <ImMinus />
+                    </button>}
 
             </div >
         )

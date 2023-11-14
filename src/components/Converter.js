@@ -86,7 +86,14 @@ class Converter extends React.Component {
                 <div>
                     <div className="converter__head">
                         <h1>Converter</h1>
-                        <button className="converter__add" onClick={this.addCurrency}> <ImPlus /> </button>
+                        <div>
+                            {this.state.currencies.length !== 1 &&
+                                <button className="converter__clear" onClick={this.clearCurrencies}> <ImCross /> </button>
+                            }
+                            {this.state.currencies.length < 9 &&
+                                <button className="converter__add" onClick={this.addCurrency}> <ImPlus /> </button>
+                            }
+                        </div>
                     </div>
                     <div className="converter__currencies">
                         {this.state.currencies.map((currency) => {
@@ -100,7 +107,7 @@ class Converter extends React.Component {
                             )
                         })}
                     </div>
-                    <button className="converter__clear" onClick={this.clearCurrencies}> <ImCross /> </button>
+
                 </div>
                 <div className="converter__calculator">
                     <span>Convert to</span>
