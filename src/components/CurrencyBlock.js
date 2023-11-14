@@ -4,6 +4,8 @@ import Selector from "./Selector";
 
 
 class CurrencyBlock extends React.Component {
+    currency = this.props.currency
+
     render() {
         return (
             <div className="currency-block">
@@ -14,9 +16,13 @@ class CurrencyBlock extends React.Component {
                     <input type="text" className="currency-block__amount" />
                 </div>
 
-                <button className="currency-block__del"> <ImMinus /> </button>
+                <button
+                    className="currency-block__del"
+                    onClick={(e) => {
+                        this.props.del(this.currency.id)
+                    }}> <ImMinus /> </button>
 
-            </div>
+            </div >
         )
     }
 }

@@ -23,11 +23,13 @@ class Converter extends React.Component {
 
         }
 
-        this.getRates()
-
         this.getRates = this.getRates.bind(this)
         this.addCurrency = this.addCurrency.bind(this)
         this.clearCurrencies = this.clearCurrencies.bind(this)
+        this.delCurrency = this.delCurrency.bind(this)
+
+
+        this.getRates()
     }
 
 
@@ -47,7 +49,6 @@ class Converter extends React.Component {
 
     addCurrency() {
         let currencyList = this.state.currencies
-        // console.log(this.state.currencies)
         currencyList.push({
             id: currencyList[currencyList.length - 1].id + 1,
             currency: 'none',
@@ -72,6 +73,13 @@ class Converter extends React.Component {
         })
     }
 
+    delCurrency(id) {
+        console.log(this.state.currencies)
+
+        this.setState({ currencies: this.state.currencies.filter((element) => element.id !== id) })
+
+    }
+
     render() {
         return (
             <div className="converter">
@@ -83,7 +91,11 @@ class Converter extends React.Component {
                     <div className="converter__currencies">
                         {this.state.currencies.map((currency) => {
                             return (
-                                <CurrencyBlock key={currency.id} currencies={Object.keys(this.state.rates)} />
+                                <CurrencyBlock
+                                    key={currency.id}
+                                    currency={currency}
+                                    del={this.delCurrency}
+                                    currencies={Object.keys(this.state.rates)} />
 
                             )
                         })}
