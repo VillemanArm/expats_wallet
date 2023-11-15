@@ -1,6 +1,6 @@
 import React from "react";
 import { ImMinus } from "react-icons/im"
-import CurrencySelector from "./CurrencySelector";
+import Selector from "./Selector";
 
 
 class CurrencyBlock extends React.Component {
@@ -11,7 +11,11 @@ class CurrencyBlock extends React.Component {
             <div className="currency-block">
                 <div>
                     <span>Currency</span>
-                    <CurrencySelector optionsList={this.props.currencies} currentCurrency={this.currency} onEdit={this.props.onEdit} />
+                    <Selector
+                        options={this.props.currencies}
+                        selected={this.currency.currency}
+                        elementId={this.currency.id}
+                        edit={this.props.editCurrency} />
                     <span>amount</span>
                     <input
                         type="text"
@@ -19,8 +23,7 @@ class CurrencyBlock extends React.Component {
                         ref={(element) => this.amountInput = element}
                         defaultValue={this.currency.amount}
                         onBlur={() => {
-                            this.currency.amount = this.amountInput.value
-                            this.props.onEdit(this.currency)
+                            this.props.editAmount(this.amountInput.value, this.currency.id)
                         }} />
                 </div>
 

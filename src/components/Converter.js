@@ -1,8 +1,7 @@
 import React from "react";
 import axios from "axios";
-import { ImPlus, ImArrowRight, ImCross } from "react-icons/im"
+import { ImPlus, ImCross } from "react-icons/im"
 import CurrencyBlock from "./CurrencyBlock";
-import CurrencySelector from "./CurrencySelector";
 import CurrencyCalculator from "./CurrencyCalculator";
 
 
@@ -21,7 +20,8 @@ class Converter extends React.Component {
                     currency: 'none',
                     amount: 0
                 }
-            ]
+            ],
+            targetCurrency: 'none'
 
         }
 
@@ -29,7 +29,9 @@ class Converter extends React.Component {
         this.addCurrency = this.addCurrency.bind(this)
         this.clearCurrencies = this.clearCurrencies.bind(this)
         this.delCurrency = this.delCurrency.bind(this)
-        this.editCurrency = this.editCurrency.bind(this)
+        this.editCurrencyCurrency = this.editCurrencyCurrency.bind(this)
+        this.editCurrencyAmount = this.editCurrencyAmount.bind(this)
+        this.editTargetCurrency = this.editTargetCurrency.bind(this)
 
         this.getRates()
     }
@@ -79,11 +81,22 @@ class Converter extends React.Component {
         this.setState({ currencies: this.state.currencies.filter((element) => element.id !== id) })
     }
 
-    editCurrency(currency) {
+    editCurrencyCurrency(currency, elementId) {
         let allCurrencies = this.state.currencies
-        const currentIndex = allCurrencies.findIndex(element => element.id === currency.id)
-        allCurrencies[currentIndex] = currency
+        const currentIndex = allCurrencies.findIndex(element => element.id === elementId)
+        allCurrencies[currentIndex].currency = currency
         this.setState({ currencies: [...allCurrencies] })
+    }
+
+    editCurrencyAmount(amount, elementId) {
+        let allCurrencies = this.state.currencies
+        const currentIndex = allCurrencies.findIndex(element => element.id === elementId)
+        allCurrencies[currentIndex].amount = amount
+        this.setState({ currencies: [...allCurrencies] })
+    }
+
+    editTargetCurrency(currency) {
+        this.setState({ targetCurrency: currency })
     }
 
     render() {
@@ -110,7 +123,8 @@ class Converter extends React.Component {
                                     del={this.delCurrency}
                                     currencies={Object.keys(this.state.rates)}
                                     currenciesAmount={this.state.currencies.length}
-                                    onEdit={this.editCurrency}
+                                    editCurrency={this.editCurrencyCurrency}
+                                    editAmount={this.editCurrencyAmount}
                                 />
 
                             )
@@ -118,7 +132,7 @@ class Converter extends React.Component {
                     </div>
 
                 </div>
-                <CurrencyCalculator rates={this.state.rates} currencies={this.state.currencies} />
+                <CurrencyCalculator rates={this.state.rates} currencies={this.state.currencies} currentCurrency={this.state.targetCurrency} editTargetCurrency={this.editTargetCurrency} />
             </div>
         )
     }
