@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { ImPlus, ImArrowRight, ImCross } from "react-icons/im"
 import CurrencyBlock from "./CurrencyBlock";
-import Selector from "./Selector";
+import CurrencySelector from "./CurrencySelector";
 
 // const digits = /[^\d\.]/g
 
@@ -74,10 +74,7 @@ class Converter extends React.Component {
     }
 
     delCurrency(id) {
-        console.log(this.state.currencies)
-
         this.setState({ currencies: this.state.currencies.filter((element) => element.id !== id) })
-
     }
 
     editCurrency(currency) {
@@ -87,8 +84,6 @@ class Converter extends React.Component {
         this.setState({ currencies: [] }, () => {
             this.setState({ currencies: [...allCurrencies] })
         })
-        // console.log(this.state.currencies)
-        // console.log(allCurrencies)
     }
 
     render() {
@@ -125,7 +120,7 @@ class Converter extends React.Component {
                 </div>
                 <div className="converter__calculator">
                     <span>Convert to</span>
-                    <Selector optionsList={Object.keys(this.state.rates)} className="converter__target-currency" />
+                    <CurrencySelector optionsList={Object.keys(this.state.rates)} className="converter__target-currency" />
                     <button className="converter__calculator-button"> <ImArrowRight /> </button>
                     <div className="converter__result">
                         <span className="converter__result-amount">3000</span>

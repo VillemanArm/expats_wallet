@@ -4,7 +4,7 @@ class Selector extends React.Component {
     selectValue() {
         const options = this.optionBlock.querySelectorAll('option')
         options.forEach((option) => {
-            option.value === this.props.currentValue && option.setAttribute('selected', true)
+            option.value === this.props.currentCurrency.currency && option.setAttribute('selected', true)
 
         })
     }
@@ -13,7 +13,14 @@ class Selector extends React.Component {
         return (
             <select
                 ref={(element) => this.optionBlock = element}
-                onLoad={this.props.currentValue && setTimeout(() => { this.selectValue() }, 10)}>
+                onChange={() => {
+                    this.props.currentCurrency && setTimeout(() => {
+                        this.props.currentCurrency.currency = this.optionBlock.value
+                        this.props.onEdit(this.props.currentCurrency)
+                    }, 10)
+                }}>
+
+                {this.props.currentCurrency && setTimeout(() => { this.selectValue() }, 10)}
 
                 <option value="none" ></option>
                 {
