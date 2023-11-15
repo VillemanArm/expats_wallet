@@ -3,6 +3,8 @@ import axios from "axios";
 import { ImPlus, ImArrowRight, ImCross } from "react-icons/im"
 import CurrencyBlock from "./CurrencyBlock";
 import CurrencySelector from "./CurrencySelector";
+import CurrencyCalculator from "./CurrencyCalculator";
+
 
 // const digits = /[^\d\.]/g
 
@@ -81,9 +83,7 @@ class Converter extends React.Component {
         let allCurrencies = this.state.currencies
         const currentIndex = allCurrencies.findIndex(element => element.id === currency.id)
         allCurrencies[currentIndex] = currency
-        this.setState({ currencies: [] }, () => {
-            this.setState({ currencies: [...allCurrencies] })
-        })
+        this.setState({ currencies: [...allCurrencies] })
     }
 
     render() {
@@ -118,15 +118,7 @@ class Converter extends React.Component {
                     </div>
 
                 </div>
-                <div className="converter__calculator">
-                    <span>Convert to</span>
-                    <CurrencySelector optionsList={Object.keys(this.state.rates)} className="converter__target-currency" />
-                    <button className="converter__calculator-button"> <ImArrowRight /> </button>
-                    <div className="converter__result">
-                        <span className="converter__result-amount">3000</span>
-                        <span className="converter__result-currency">USD</span>
-                    </div>
-                </div>
+                <CurrencyCalculator rates={this.state.rates} currencies={this.state.currencies} />
             </div>
         )
     }

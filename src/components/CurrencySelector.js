@@ -1,6 +1,6 @@
 import React from "react";
 
-class Selector extends React.Component {
+class CurrencySelector extends React.Component {
     selectValue() {
         const options = this.optionBlock.querySelectorAll('option')
         options.forEach((option) => {
@@ -36,4 +36,4 @@ class Selector extends React.Component {
     }
 }
 
-export default Selector
+export default CurrencySelector
