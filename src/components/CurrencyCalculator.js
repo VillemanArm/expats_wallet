@@ -7,13 +7,13 @@ class CurrencyCalculator extends React.Component {
 
     render() {
         return (
-            <div className="converter__calculator">
+            <div className="calculator">
                 <span>Convert to</span>
                 <CurrencySelector optionsList={Object.keys(this.props.rates)} className="converter__target-currency" />
-                <button className="converter__calculator-button"> <ImArrowRight /> </button>
-                <div className="converter__result">
-                    <span className="converter__result-amount">3000</span>
-                    <span className="converter__result-currency">USD</span>
+                <button className="calculator__calc-button"> <ImArrowRight /> </button>
+                <div className="calculator__result">
+                    <span className="calculator__result-amount">3000</span>
+                    <span className="calculator__result-currency">USD</span>
                 </div>
             </div>
         )
