@@ -21,7 +21,8 @@ class Converter extends React.Component {
                     amount: 0
                 }
             ],
-            targetCurrency: 'none'
+            targetCurrency: 'none',
+            result: ''
 
         }
 
@@ -32,6 +33,7 @@ class Converter extends React.Component {
         this.editCurrencyCurrency = this.editCurrencyCurrency.bind(this)
         this.editCurrencyAmount = this.editCurrencyAmount.bind(this)
         this.editTargetCurrency = this.editTargetCurrency.bind(this)
+        this.calculate = this.calculate.bind(this)
 
         this.getRates()
     }
@@ -99,6 +101,16 @@ class Converter extends React.Component {
         this.setState({ targetCurrency: currency })
     }
 
+    calculate() {
+        let result = 0
+        this.state.currencies.forEach((currency) => {
+            result += currency.amount / this.state.rates[currency.currency] * this.state.rates[this.state.targetCurrency]
+        })
+
+        result = result.toFixed(2)
+        this.setState({ result: result })
+    }
+
     render() {
         return (
             <div className="converter">
@@ -132,7 +144,14 @@ class Converter extends React.Component {
                     </div>
 
                 </div>
-                <CurrencyCalculator rates={this.state.rates} currencies={this.state.currencies} currentCurrency={this.state.targetCurrency} editTargetCurrency={this.editTargetCurrency} />
+                <CurrencyCalculator
+                    rates={this.state.rates}
+                    currencies={this.state.currencies}
+                    targetCurrency={this.state.targetCurrency}
+                    result={this.state.result}
+                    editTargetCurrency={this.editTargetCurrency}
+                    calculate={this.calculate} />
+
             </div>
         )
     }

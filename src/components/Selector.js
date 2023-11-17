@@ -5,7 +5,6 @@ class Selector extends React.Component {
         const optionsList = this.selectBlock.querySelectorAll('option')
         optionsList.forEach((option) => {
             option.value === this.props.selected && option.setAttribute('selected', true)
-
         })
     }
 
