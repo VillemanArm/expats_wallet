@@ -80,14 +80,14 @@ class Converter extends React.Component {
     }
 
     delCurrency(id) {
-        this.setState({ currencies: this.state.currencies.filter((element) => element.id !== id) })
+        this.setState({ currencies: this.state.currencies.filter((element) => element.id !== id), result: '' })
     }
 
     editCurrencyCurrency(currency, elementId) {
         let allCurrencies = this.state.currencies
         const currentIndex = allCurrencies.findIndex(element => element.id === elementId)
         allCurrencies[currentIndex].currency = currency
-        this.setState({ currencies: [...allCurrencies] })
+        this.setState({ currencies: [...allCurrencies], result: '' })
     }
 
     editCurrencyAmount(amount, elementId) {
@@ -98,7 +98,7 @@ class Converter extends React.Component {
     }
 
     editTargetCurrency(currency) {
-        this.setState({ targetCurrency: currency })
+        this.setState({ targetCurrency: currency, result: '' })
     }
 
     calculate() {
