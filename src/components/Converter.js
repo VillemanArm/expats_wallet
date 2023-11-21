@@ -74,7 +74,8 @@ class Converter extends React.Component {
                         currency: 'none',
                         amount: 0
                     }
-                ]
+                ],
+                result: ''
             })
         })
     }
@@ -94,7 +95,7 @@ class Converter extends React.Component {
         let allCurrencies = this.state.currencies
         const currentIndex = allCurrencies.findIndex(element => element.id === elementId)
         allCurrencies[currentIndex].amount = amount
-        this.setState({ currencies: [...allCurrencies] })
+        this.setState({ currencies: [...allCurrencies], result: '' })
     }
 
     editTargetCurrency(currency) {
