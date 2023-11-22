@@ -18,7 +18,8 @@ class Converter extends React.Component {
                 {
                     id: 1,
                     currency: 'none',
-                    amount: 0
+                    amount: 0,
+                    error: ''
                 }
             ],
             targetCurrency: 'none',
@@ -58,7 +59,8 @@ class Converter extends React.Component {
         currencyList.push({
             id: currencyList[currencyList.length - 1].id + 1,
             currency: 'none',
-            amount: 0
+            amount: 0,
+            error: ''
         })
         this.setState({ currencies: [] }, () => {
             this.setState({ currencies: [...currencyList] })
@@ -72,7 +74,8 @@ class Converter extends React.Component {
                     {
                         id: 1,
                         currency: 'none',
-                        amount: 0
+                        amount: 0,
+                        error: ''
                     }
                 ],
                 result: ''
@@ -91,10 +94,11 @@ class Converter extends React.Component {
         this.setState({ currencies: [...allCurrencies], result: '' })
     }
 
-    editCurrencyAmount(amount, elementId) {
+    editCurrencyAmount(amount, elementId, error) {
         let allCurrencies = this.state.currencies
         const currentIndex = allCurrencies.findIndex(element => element.id === elementId)
         allCurrencies[currentIndex].amount = amount
+        allCurrencies[currentIndex].error = error
         this.setState({ currencies: [...allCurrencies], result: '' })
     }
 
@@ -122,7 +126,7 @@ class Converter extends React.Component {
                             {this.state.currencies.length !== 1 &&
                                 <button className="converter__clear" onClick={this.clearCurrencies}> <ImCross /> </button>
                             }
-                            {this.state.currencies.length < 9 &&
+                            {this.state.currencies.length < 8 &&
                                 <button className="converter__add" onClick={this.addCurrency}> <ImPlus /> </button>
                             }
                         </div>

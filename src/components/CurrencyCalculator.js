@@ -19,7 +19,10 @@ class CurrencyCalculator extends React.Component {
                 <div className="calculator__options">
                     <span>Convert to</span>
                     <Selector options={Object.keys(this.props.rates)} selected={this.props.targetCurrency} edit={this.props.editTargetCurrency} />
-                    {(this.props.targetCurrency !== 'none' && this.props.currencies.every((element) => element.currency !== 'none')) &&
+                    {(this.props.targetCurrency !== 'none'
+                        && this.props.currencies.every((element) => element.currency !== 'none')
+                        && this.props.currencies.every((element) => !element.error)
+                    ) &&
 
                         <button className="calculator__calc-button" onClick={() => this.props.calculate()}> <ImArrowRight /> </button>
 
