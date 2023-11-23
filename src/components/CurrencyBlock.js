@@ -8,7 +8,7 @@ class CurrencyBlock extends React.Component {
     numbers = /^\d{1,9}\.?(\d{1,2})?$/g
 
     amountValidate() {
-        const amount = this.amountInput.value
+        let amount = this.amountInput.value
         const zero = /^\.+(0{1,2})?$/g
         const pointZero = /^\.+(\d{1,2})?$/g
 
@@ -19,7 +19,10 @@ class CurrencyBlock extends React.Component {
                 this.amountInput.value = 0
                 this.currency.error = ''
             } else if (pointZero.test(amount)) {
+                amount = amount.replace(/\.+/, '.')
+                console.log(this.amountInput.value)
                 this.amountInput.value = '0' + amount
+                this.currency.error = ''
             } else if (amount.match(/\./g).length > 1) {
                 this.currency.error = 'Remove the extra point!'
             } else (
