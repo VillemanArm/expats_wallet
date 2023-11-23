@@ -12,16 +12,19 @@ class Converter extends React.Component {
     constructor(props) {
         super(props)
 
+
         this.state = {
             rates: '',
-            currencies: [
-                {
-                    id: 1,
-                    currency: 'none',
-                    amount: 0,
-                    error: ''
-                }
-            ],
+            currencies: localStorage.expatsWallet ?
+                JSON.parse(localStorage.expatsWallet).lastData :
+                [
+                    {
+                        id: 1,
+                        currency: 'none',
+                        amount: 0,
+                        error: ''
+                    }
+                ],
             targetCurrency: 'none',
             result: ''
 
@@ -63,12 +66,12 @@ class Converter extends React.Component {
             error: ''
         })
         this.setState({ currencies: [] }, () => {
-            this.setState({ currencies: [...currencyList] })
+            this.setState({ currencies: [...currencyList], result: '' })
         })
     }
 
-    clearCurrencies() {
-        this.setState({ currencies: [] }, () => {
+    async clearCurrencies() {
+        await this.setState({ currencies: [] }, () => {
             this.setState({
                 currencies: [
                     {
@@ -81,6 +84,9 @@ class Converter extends React.Component {
                 result: ''
             })
         })
+        let history = JSON.parse(localStorage.expatsWallet)
+        history.lastData = this.state.currencies
+        localStorage.expatsWallet = JSON.stringify(history)
     }
 
     delCurrency(id) {
@@ -106,14 +112,42 @@ class Converter extends React.Component {
         this.setState({ targetCurrency: currency, result: '' })
     }
 
-    calculate() {
+    async calculate() {
         let result = 0
         this.state.currencies.forEach((currency) => {
             result += currency.amount / this.state.rates[currency.currency] * this.state.rates[this.state.targetCurrency]
         })
 
         result = result.toFixed(2)
-        this.setState({ result: result })
+        await this.setState({ result: result })
+        this.sendToStorage()
+    }
+
+    sendToStorage() {
+        const date = new Date
+
+        const historyString = {
+            id: 1,
+            date: date.toLocaleDateString(),
+            amount: this.state.result,
+            currency: this.state.targetCurrency
+        }
+
+        if (!localStorage.expatsWallet) {
+            localStorage.expatsWallet = JSON.stringify({
+                lastData: this.state.currencies,
+                history: [
+                    historyString
+                ]
+            })
+        } else {
+            let history = JSON.parse(localStorage.expatsWallet)
+            history.lastData = this.state.currencies
+            historyString.id = history.history[history.history.length - 1].id + 1
+            history.history.push(historyString)
+            localStorage.expatsWallet = JSON.stringify(history)
+        }
+
     }
 
     render() {
