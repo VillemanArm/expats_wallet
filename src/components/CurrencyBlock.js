@@ -20,7 +20,6 @@ class CurrencyBlock extends React.Component {
                 this.currency.error = ''
             } else if (pointZero.test(amount)) {
                 amount = amount.replace(/\.+/, '.')
-                console.log(this.amountInput.value)
                 this.amountInput.value = '0' + amount
                 this.currency.error = ''
             } else if (amount.match(/\./g).length > 1) {
@@ -65,20 +64,13 @@ class CurrencyBlock extends React.Component {
                                 className={this.currency.error ? "currency-block__amount error" : "currency-block__amount"}
                                 ref={(element) => this.amountInput = element}
                                 defaultValue={this.currency.amount}
-                                onBlur={() => {
-                                    this.amountValidate()
-                                }
-                                }
-                                onInput={() => {
-                                    this.inputValidate()
-                                }}
+                                onBlur={() => this.amountValidate()}
+                                onInput={() => this.inputValidate()}
                             />
-
                         </div>
                     </div>
 
                     {this.currency.error && <div className="currency-block__error error">{this.currency.error}</div>}
-
 
                 </div>
 

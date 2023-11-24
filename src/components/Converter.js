@@ -5,13 +5,9 @@ import CurrencyBlock from "./CurrencyBlock";
 import CurrencyCalculator from "./CurrencyCalculator";
 
 
-// const digits = /[^\d\.]/g
-
-
 class Converter extends React.Component {
     constructor(props) {
         super(props)
-
 
         this.state = {
             rates: '',
@@ -27,7 +23,6 @@ class Converter extends React.Component {
                 ],
             targetCurrency: 'none',
             result: ''
-
         }
 
         this.getRates = this.getRates.bind(this)
@@ -39,6 +34,10 @@ class Converter extends React.Component {
         this.editTargetCurrency = this.editTargetCurrency.bind(this)
         this.calculate = this.calculate.bind(this)
 
+
+    }
+
+    componentDidMount() {
         this.getRates()
     }
 
@@ -46,7 +45,7 @@ class Converter extends React.Component {
     getRates() {
         const base = 'USD'
         const currencies = 'RUB,EUR,USD,AMD,GEL,CNY'
-        const resolution = '1m'
+        const resolution = '1h'
         const url = `https://api.fxratesapi.com/latest?base=${base}&currencies=${currencies}&resolution=${resolution}&amount=1&places=6&format=json`
 
         axios.get(url)
@@ -59,15 +58,14 @@ class Converter extends React.Component {
 
     addCurrency() {
         let currencyList = this.state.currencies
+
         currencyList.push({
             id: currencyList[currencyList.length - 1].id + 1,
             currency: 'none',
             amount: 0,
             error: ''
         })
-        this.setState({ currencies: [] }, () => {
-            this.setState({ currencies: [...currencyList], result: '' })
-        })
+        this.setState({ currencies: [...currencyList], result: '' })
     }
 
     async clearCurrencies() {
@@ -84,6 +82,7 @@ class Converter extends React.Component {
                 result: ''
             })
         })
+
         let history = JSON.parse(localStorage.expatsWallet)
         history.lastData = this.state.currencies
         localStorage.expatsWallet = JSON.stringify(history)
@@ -115,7 +114,11 @@ class Converter extends React.Component {
     async calculate() {
         let result = 0
         this.state.currencies.forEach((currency) => {
-            result += currency.amount / this.state.rates[currency.currency] * this.state.rates[this.state.targetCurrency]
+            const amount = currency.amount
+            const rate = this.state.rates[currency.currency]
+            const targetRate = this.state.rates[this.state.targetCurrency]
+
+            result += amount / rate * targetRate
         })
 
         result = result.toFixed(2)
@@ -124,7 +127,7 @@ class Converter extends React.Component {
     }
 
     sendToStorage() {
-        const date = new Date
+        const date = new Date()
 
         const historyString = {
             id: 1,
@@ -142,9 +145,11 @@ class Converter extends React.Component {
             })
         } else {
             let history = JSON.parse(localStorage.expatsWallet)
+
             history.lastData = this.state.currencies
             historyString.id = history.history[history.history.length - 1].id + 1
             history.history.push(historyString)
+
             localStorage.expatsWallet = JSON.stringify(history)
         }
 
