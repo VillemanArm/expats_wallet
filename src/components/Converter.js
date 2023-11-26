@@ -22,7 +22,8 @@ class Converter extends React.Component {
                     }
                 ],
             targetCurrency: 'none',
-            result: ''
+            result: '',
+            isScrollbar: false
         }
 
         this.getRates = this.getRates.bind(this)
@@ -33,14 +34,13 @@ class Converter extends React.Component {
         this.editCurrencyAmount = this.editCurrencyAmount.bind(this)
         this.editTargetCurrency = this.editTargetCurrency.bind(this)
         this.calculate = this.calculate.bind(this)
-
-
+        this.checkScrollbar = this.checkScrollbar.bind(this)
     }
 
     componentDidMount() {
         this.getRates()
+        this.checkScrollbar()
     }
-
 
     getRates() {
         const base = 'USD'
@@ -79,7 +79,8 @@ class Converter extends React.Component {
                         error: ''
                     }
                 ],
-                result: ''
+                result: '',
+                isScrollbar: false
             })
         })
 
@@ -155,6 +156,15 @@ class Converter extends React.Component {
 
     }
 
+    async checkScrollbar() {
+        const converterCurrencies = document.querySelector('.converter__currencies')
+        if (converterCurrencies.scrollHeight > converterCurrencies.offsetHeight) {
+            await this.setState({ isScrollbar: true })
+        } else {
+            await this.setState({ isScrollbar: false })
+        }
+    }
+
     render() {
         return (
             <div className="converter">
@@ -165,12 +175,24 @@ class Converter extends React.Component {
                             {this.state.currencies.length !== 1 &&
                                 <button className="converter__clear" onClick={this.clearCurrencies}> <ImCross /> </button>
                             }
-                            {this.state.currencies.length < 8 &&
-                                <button className="converter__add" onClick={this.addCurrency}> <ImPlus /> </button>
+                            {this.state.currencies.length < 20 &&
+                                <button className="converter__add"
+                                    style={this.state.isScrollbar ? { marginRight: '1.8rem' } : { marginRight: '0' }}
+                                    onClick={async (event) => {
+                                        await this.addCurrency()
+                                        await this.checkScrollbar()
+
+                                    }}
+                                >
+                                    <ImPlus />
+                                </button>
                             }
                         </div>
                     </div>
-                    <div className="converter__currencies">
+                    <div className="converter__currencies"
+                        style={this.state.isScrollbar ? { paddingRight: '0.8rem' } : { paddingRight: '0' }}
+                    >
+
                         {this.state.currencies.map((currency) => {
                             return (
                                 <CurrencyBlock
@@ -181,6 +203,7 @@ class Converter extends React.Component {
                                     currenciesAmount={this.state.currencies.length}
                                     editCurrency={this.editCurrencyCurrency}
                                     editAmount={this.editCurrencyAmount}
+                                    checkScrollbar={this.checkScrollbar}
                                 />
 
                             )
@@ -196,7 +219,7 @@ class Converter extends React.Component {
                     editTargetCurrency={this.editTargetCurrency}
                     calculate={this.calculate} />
 
-            </div>
+            </div >
         )
     }
 }

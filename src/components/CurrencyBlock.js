@@ -48,8 +48,13 @@ class CurrencyBlock extends React.Component {
 
     render() {
         return (
-            <div className="currency-block" id={`currency-block-${this.currency.id}`}>
-                <div className="currency-block__inputs">
+            <div className="currency-block"
+                id={`currency-block-${this.currency.id}`}
+            >
+                <div className="currency-block__inputs"
+                    style={!document.querySelector('.currency-block__del') ? { width: '46.6rem' } : { width: '100%' }}
+
+                >
                     <div className="currency-block__inputs-wrapper">
                         <span>Currency</span>
                         <Selector
@@ -74,14 +79,17 @@ class CurrencyBlock extends React.Component {
 
                 </div>
 
-                {this.props.currenciesAmount !== 1 &&
+                {
+                    this.props.currenciesAmount !== 1 &&
                     <button
                         className="currency-block__del"
-                        onClick={(e) => {
-                            this.props.del(this.currency.id)
+                        onClick={async (e) => {
+                            await this.props.del(this.currency.id)
+                            await this.props.checkScrollbar()
                         }}>
                         <ImMinus />
-                    </button>}
+                    </button>
+                }
 
 
             </div >
