@@ -54,11 +54,13 @@ h1
     line-height: 100%
 
 
-// h2 
-//     padding-bottom: 2.7rem
+h2 
+    margin: 0
 
-//     font-family: $header-font
-//     font-size: 5.8rem
+    font-family: $header1-font
+    font-size: 4rem
+    font-weight: 300
+    line-height: 100%
 
 
 // h3 
@@ -95,6 +97,7 @@ button
     & svg
         width: 1.6rem
         height: 1.6rem
+        fill: $secondary-color
 
 
 @media (max-width: 1240px)
@@ -149,9 +152,10 @@ button
 @import components/Header
 @import components/Logo
 @import components/Converter
-@import components/History
 @import components/CurrencyBlock
 @import components/CurrensyCalculator
+@import components/History
+@import components/HistoryBlock
 
 .error
     color: $error-color
