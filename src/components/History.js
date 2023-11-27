@@ -1,33 +1,27 @@
 import React from "react";
 import HistoryBlock from "./HistoryBlock";
-import { ImCross } from "react-icons/im"
-
+import { ImCross } from "react-icons/im";
 
 class History extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
 
-        // this.state = {
-        //     rates: '',
-        //     currencies: localStorage.expatsWallet ?
-        //         JSON.parse(localStorage.expatsWallet).lastData :
-        //         [
-        //             {
-        //                 id: 1,
-        //                 currency: 'none',
-        //                 amount: 0,
-        //                 error: ''
-        //             }
-        //         ],
-        //     targetCurrency: 'none',
-        //     result: ''
-        // }
+        this.state = {
+            isScrollbar: false,
+            allData: localStorage.expatsWallet && JSON.parse(localStorage.expatsWallet),
+            //оптимизировать для первой загрузки
+        };
 
-        this.addScrollbarGap = this.addScrollbarGap.bind(this)
+        this.addScrollbarGap = this.addScrollbarGap.bind(this);
+        this.delRecord = this.delRecord.bind(this);
     }
 
     componentDidMount() {
-        this.addScrollbarGap()
+        this.addScrollbarGap();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        localStorage.expatsWallet = JSON.stringify(this.state.allData)
     }
 
     //     const targetElement = document.getElementById('yourElementId'); // Замените на ваш реальный идентификатор элемента
@@ -47,12 +41,21 @@ class History extends React.Component {
     // resizeObserver.observe(targetElement);
 
     addScrollbarGap() {
-        const historyContainer = document.querySelector('.history__container')
-        const historyClear = document.querySelector('.history__clear')
+        const historyContainer = document.querySelector(".history__container");
+        const historyClear = document.querySelector(".history__clear");
         if (historyContainer.scrollHeight > historyContainer.offsetHeight) {
-            historyContainer.style = 'padding-right: 1rem'
-            historyClear.style = 'margin-right: 1.8rem'
+            historyContainer.style = "padding-right: 1rem";
+            historyClear.style = "margin-right: 1.8rem";
         }
+    }
+
+    async delRecord(id) {
+        let newAllData = this.state.allData;
+        newAllData.history = this.state.allData.history.filter(
+            (record) => record.id !== id
+        );
+        await this.setState({ allData: newAllData });
+
     }
 
     render() {
@@ -60,32 +63,23 @@ class History extends React.Component {
             <div className="history">
                 <div className="history__head">
                     <h2>History</h2>
-                    <button className="history__clear"> <ImCross /> </button>
+                    <button className="history__clear">
+                        {" "}
+                        <ImCross />{" "}
+                    </button>
                 </div>
                 <div className="history__container">
-                    <HistoryBlock />
-                    <HistoryBlock />
-                    <HistoryBlock />
-                    <HistoryBlock />
-                    <HistoryBlock />
-                    <HistoryBlock />
-                    <HistoryBlock />
-                    <HistoryBlock />
-                    <HistoryBlock />
-                    <HistoryBlock />
-                    <HistoryBlock />
-                    <HistoryBlock />
-                    <HistoryBlock />
-                    <HistoryBlock />
-                    <HistoryBlock />
-
-
+                    {localStorage.expatsWallet && this.state.allData.history.map((record) => (
+                        <HistoryBlock
+                            key={record.id}
+                            record={record}
+                            del={this.delRecord}
+                        />
+                    ))}
                 </div>
-
-
             </div>
-        )
+        );
     }
 }
 
-export default History
+export default History;

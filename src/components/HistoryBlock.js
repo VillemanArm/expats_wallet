@@ -1,33 +1,34 @@
 import React from "react";
 import { ImMinus } from "react-icons/im";
 
-
-
 class HistoryBlock extends React.Component {
-
     render() {
         return (
             <div className="history-block">
                 <div className="history-block__record">
-                    <span className="history-block__date">05.02.2023</span>
+                    <span className="history-block__date">
+                        {this.props.record.date}
+                    </span>
                     <div>
-                        <span className="history-block__amount">555555555555.99</span>
-                        <span className="history-block__currency">AMD</span>
+                        <span className="history-block__amount">
+                            {this.props.record.amount}
+                        </span>
+                        <span className="history-block__currency">
+                            {this.props.record.currency}
+                        </span>
                     </div>
                 </div>
                 <button
                     className="history-block__del"
-                // onClick={(e) => {
-                //     this.props.del(this.historyRecord.id)
-                // }}
+                    onClick={(e) => {
+                        this.props.del(this.props.record.id);
+                    }}
                 >
                     <ImMinus />
                 </button>
-
-
-            </div >
-        )
+            </div>
+        );
     }
 }
 
-export default HistoryBlock
+export default HistoryBlock;
