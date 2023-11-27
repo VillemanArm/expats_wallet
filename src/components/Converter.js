@@ -148,7 +148,7 @@ class Converter extends React.Component {
             let history = JSON.parse(localStorage.expatsWallet)
 
             history.lastData = this.state.currencies
-            historyString.id = history.history[history.history.length - 1].id + 1
+            historyString.id = history.history.length ? history.history[history.history.length - 1].id + 1 : 1
             history.history.push(historyString)
 
             localStorage.expatsWallet = JSON.stringify(history)

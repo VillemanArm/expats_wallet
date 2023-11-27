@@ -12,8 +12,9 @@ class History extends React.Component {
             //оптимизировать для первой загрузки
         };
 
-        this.addScrollbarGap = this.addScrollbarGap.bind(this);
-        this.delRecord = this.delRecord.bind(this);
+        this.addScrollbarGap = this.addScrollbarGap.bind(this)
+        this.delRecord = this.delRecord.bind(this)
+        this.clearHistory = this.clearHistory.bind(this)
     }
 
     componentDidMount() {
@@ -49,13 +50,19 @@ class History extends React.Component {
         }
     }
 
-    async delRecord(id) {
+    delRecord(id) {
         let newAllData = this.state.allData;
         newAllData.history = this.state.allData.history.filter(
             (record) => record.id !== id
         );
-        await this.setState({ allData: newAllData });
+        this.setState({ allData: newAllData });
 
+    }
+
+    clearHistory() {
+        let newAllData = this.state.allData;
+        newAllData.history = []
+        this.setState({ allData: newAllData });
     }
 
     render() {
@@ -63,10 +70,12 @@ class History extends React.Component {
             <div className="history">
                 <div className="history__head">
                     <h2>History</h2>
-                    <button className="history__clear">
-                        {" "}
-                        <ImCross />{" "}
+                    {localStorage.expatsWallet && <button className="history__clear"
+                        onClick={this.clearHistory}
+                    >
+                        <ImCross />
                     </button>
+                    }
                 </div>
                 <div className="history__container">
                     {localStorage.expatsWallet && this.state.allData.history.map((record) => (
