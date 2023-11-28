@@ -3,7 +3,6 @@ import HistoryBlock from "./HistoryBlock";
 import { ImCross } from "react-icons/im";
 
 // TODO: реализовать добавление строк истории в реальном времени
-// TODO: проверить работу отступов при добавлении скроллбара
 // TODO: адаптировать верстку для firefox 
 
 class History extends React.Component {
@@ -15,7 +14,6 @@ class History extends React.Component {
             allData: localStorage.expatsWallet && JSON.parse(localStorage.expatsWallet),
         };
 
-        // this.addScrollbarGap = this.addScrollbarGap.bind(this)
         this.delRecord = this.delRecord.bind(this)
         this.clearHistory = this.clearHistory.bind(this)
         this.checkScrollbar = this.checkScrollbar.bind(this)
