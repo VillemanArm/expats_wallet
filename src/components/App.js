@@ -2,7 +2,8 @@ import React from "react";
 import History from "./History";
 import Converter from "./Converter";
 
-// TODO: реализовать добавление строк истории в реальном времени
+// TODO: сделать footer
+// TODO: реализовать адаптивную верстку
 // TODO: адаптировать верстку для firefox
 
 class App extends React.Component {
@@ -27,6 +28,7 @@ class App extends React.Component {
 
         this.sendHistoryRecord = this.sendHistoryRecord.bind(this);
         this.sendLastData = this.sendLastData.bind(this);
+        this.sendHistory = this.sendHistory.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -51,6 +53,10 @@ class App extends React.Component {
         this.setState({ lastData: data });
     }
 
+    sendHistory(newHistory) {
+        this.setState({ history: newHistory });
+    }
+
     render() {
         return (
             <section className="main-block__wrapper container">
@@ -59,7 +65,10 @@ class App extends React.Component {
                     sendHistoryRecord={this.sendHistoryRecord}
                     sendLastData={this.sendLastData}
                 />
-                {/* <History history={this.state.history} /> */}
+                <History
+                    history={this.state.history}
+                    sendHistory={this.sendHistory}
+                />
             </section>
         );
     }

@@ -21,8 +21,8 @@ class History extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (localStorage.expatsWallet) {
-            localStorage.expatsWallet = JSON.stringify(prevState.allData);
+        if (prevProps.history !== this.props.history) {
+            this.setState({ history: this.props.history });
         }
     }
 
@@ -32,10 +32,12 @@ class History extends React.Component {
         );
         await this.setState({ history: newHistory });
         await this.checkScrollbar();
+        this.props.sendHistory(this.state.history);
     }
 
-    clearHistory() {
-        this.setState({ history: [] });
+    async clearHistory() {
+        await this.setState({ history: [] });
+        await this.props.sendHistory(this.state.history);
     }
 
     async checkScrollbar() {
