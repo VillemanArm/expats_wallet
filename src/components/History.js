@@ -8,11 +8,9 @@ class History extends React.Component {
 
         this.state = {
             isScrollbar: false,
-            history: this.props.history,
         };
 
         this.delRecord = this.delRecord.bind(this);
-        this.clearHistory = this.clearHistory.bind(this);
         this.checkScrollbar = this.checkScrollbar.bind(this);
     }
 
@@ -20,24 +18,12 @@ class History extends React.Component {
         this.checkScrollbar();
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.history !== this.props.history) {
-            this.setState({ history: this.props.history });
-        }
-    }
-
-    async delRecord(id) {
-        let newHistory = this.state.history.filter(
+    delRecord(id) {
+        let newHistory = this.props.history.filter(
             (record) => record.id !== id
         );
-        await this.setState({ history: newHistory });
-        await this.checkScrollbar();
-        this.props.sendHistory(this.state.history);
-    }
-
-    async clearHistory() {
-        await this.setState({ history: [] });
-        await this.props.sendHistory(this.state.history);
+        this.props.sendHistory(newHistory);
+        this.checkScrollbar();
     }
 
     async checkScrollbar() {
@@ -58,7 +44,7 @@ class History extends React.Component {
             <div className="history">
                 <div className="history__head">
                     <h2>History</h2>
-                    {this.state.history && this.state.history.length > 1 && (
+                    {this.props.history && this.props.history.length > 1 && (
                         <button
                             className="history__clear"
                             style={
@@ -66,7 +52,9 @@ class History extends React.Component {
                                     ? { marginRight: "1.8rem" }
                                     : { marginRight: "0" }
                             }
-                            onClick={this.clearHistory}
+                            onClick={() => {
+                                this.props.sendHistory([]);
+                            }}
                         >
                             <ImCross />
                         </button>
@@ -81,7 +69,7 @@ class History extends React.Component {
                     }
                 >
                     {localStorage.expatsWallet &&
-                        this.state.history.map((record) => (
+                        this.props.history.map((record) => (
                             <HistoryBlock
                                 key={record.id}
                                 record={record}
