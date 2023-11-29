@@ -50,7 +50,9 @@ class App extends React.Component {
     }
 
     sendLastData(data) {
-        this.setState({ lastData: data });
+        this.setState({ lastData: [] }, () => {
+            this.setState({ lastData: [...data] });
+        });
     }
 
     sendHistory(newHistory) {
