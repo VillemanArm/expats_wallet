@@ -10,16 +10,6 @@ class Converter extends React.Component {
 
         this.state = {
             rates: "",
-            currencies: this.props.lastData
-                ? this.props.lastData
-                : [
-                      {
-                          id: 1,
-                          currency: "none",
-                          amount: 0,
-                          error: "",
-                      },
-                  ],
             targetCurrency: "none",
             result: "",
             isScrollbar: false,
@@ -56,7 +46,7 @@ class Converter extends React.Component {
     }
 
     addCurrency() {
-        let currencyList = this.state.currencies;
+        let currencyList = this.props.lastData;
 
         currencyList.push({
             id: currencyList[currencyList.length - 1].id + 1,
@@ -64,58 +54,51 @@ class Converter extends React.Component {
             amount: 0,
             error: "",
         });
-        this.setState({ currencies: [...currencyList], result: "" });
-        this.props.sendLastData(this.state.currencies);
+
+        this.props.sendLastData(currencyList);
     }
 
     async clearCurrencies() {
-        await this.setState({ currencies: [] }, () => {
-            this.setState({
-                currencies: [
-                    {
-                        id: 1,
-                        currency: "none",
-                        amount: 0,
-                        error: "",
-                    },
-                ],
-                result: "",
-                isScrollbar: false,
-            });
-        });
+        const currencyList = [
+            {
+                id: 1,
+                currency: "none",
+                amount: 0,
+                error: "",
+            },
+        ];
 
-        this.props.sendLastData(this.state.currencies);
+        await this.props.sendLastData(currencyList);
+        await this.setState({ result: "", isScrollbar: false });
     }
 
     async delCurrency(id) {
-        await this.setState({
-            currencies: this.state.currencies.filter(
-                (element) => element.id !== id
-            ),
-            result: "",
-        });
-        this.props.sendLastData(this.state.currencies);
+        const currencies = this.props.lastData.filter(
+            (element) => element.id !== id
+        );
+        this.setState({ result: "" });
+        this.props.sendLastData(currencies);
     }
 
     editCurrencyCurrency(currency, elementId) {
-        let allCurrencies = this.state.currencies;
+        let allCurrencies = this.props.lastData;
         const currentIndex = allCurrencies.findIndex(
             (element) => element.id === elementId
         );
         allCurrencies[currentIndex].currency = currency;
-        this.setState({ currencies: [...allCurrencies], result: "" });
-        this.props.sendLastData(this.state.currencies);
+        this.setState({ result: "" });
+        this.props.sendLastData(allCurrencies);
     }
 
     editCurrencyAmount(amount, elementId, error) {
-        let allCurrencies = this.state.currencies;
+        let allCurrencies = this.props.lastData;
         const currentIndex = allCurrencies.findIndex(
             (element) => element.id === elementId
         );
         allCurrencies[currentIndex].amount = amount;
         allCurrencies[currentIndex].error = error;
-        this.setState({ currencies: [...allCurrencies], result: "" });
-        this.props.sendLastData(this.state.currencies);
+        this.setState({ result: "" });
+        this.props.sendLastData(this.props.lastData);
     }
 
     editTargetCurrency(currency) {
@@ -124,7 +107,7 @@ class Converter extends React.Component {
 
     async calculate() {
         let result = 0;
-        this.state.currencies.forEach((currency) => {
+        this.props.lastData.forEach((currency) => {
             const amount = currency.amount;
             const rate = this.state.rates[currency.currency];
             const targetRate = this.state.rates[this.state.targetCurrency];
@@ -135,7 +118,6 @@ class Converter extends React.Component {
         result = result.toFixed(2);
         await this.setState({ result: result });
         this.props.sendHistoryRecord(this.generateHistoryRecord());
-        this.props.sendLastData(this.state.currencies);
     }
 
     generateHistoryRecord() {
@@ -181,7 +163,7 @@ class Converter extends React.Component {
                     <div className="converter__head">
                         <h1>Converter</h1>
                         <div>
-                            {this.state.currencies.length !== 1 && (
+                            {this.props.lastData.length !== 1 && (
                                 <button
                                     className="converter__clear"
                                     onClick={this.clearCurrencies}
@@ -190,7 +172,7 @@ class Converter extends React.Component {
                                     <ImCross />{" "}
                                 </button>
                             )}
-                            {this.state.currencies.length < 20 && (
+                            {this.props.lastData.length < 20 && (
                                 <button
                                     className="converter__add"
                                     style={
@@ -216,7 +198,7 @@ class Converter extends React.Component {
                                 : { paddingRight: "0" }
                         }
                     >
-                        {this.state.currencies.map((currency) => {
+                        {this.props.lastData.map((currency) => {
                             return (
                                 <CurrencyBlock
                                     key={currency.id}
@@ -224,7 +206,7 @@ class Converter extends React.Component {
                                     del={this.delCurrency}
                                     currencies={Object.keys(this.state.rates)}
                                     currenciesAmount={
-                                        this.state.currencies.length
+                                        this.props.lastData.length
                                     }
                                     editCurrency={this.editCurrencyCurrency}
                                     editAmount={this.editCurrencyAmount}
@@ -236,7 +218,7 @@ class Converter extends React.Component {
                 </div>
                 <CurrencyCalculator
                     rates={this.state.rates}
-                    currencies={this.state.currencies}
+                    currencies={this.props.lastData}
                     targetCurrency={this.state.targetCurrency}
                     result={this.state.result}
                     editTargetCurrency={this.editTargetCurrency}
