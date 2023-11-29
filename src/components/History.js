@@ -18,6 +18,12 @@ class History extends React.Component {
         this.checkScrollbar();
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.history !== this.props.history) {
+            this.checkScrollbar();
+        }
+    }
+
     delRecord(id) {
         let newHistory = this.props.history.filter(
             (record) => record.id !== id

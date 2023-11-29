@@ -31,6 +31,12 @@ class Converter extends React.Component {
         this.checkScrollbar();
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.lastData !== this.props.lastData) {
+            this.checkScrollbar();
+        }
+    }
+
     getRates() {
         const base = "USD";
         const currencies = "RUB,EUR,USD,AMD,GEL,CNY";
