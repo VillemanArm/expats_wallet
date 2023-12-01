@@ -2,9 +2,7 @@ import React from "react";
 import History from "./History";
 import Converter from "./Converter";
 
-// TODO: сделать footer
 // TODO: реализовать адаптивную верстку
-// TODO: адаптировать верстку для firefox
 
 class App extends React.Component {
     constructor(props) {

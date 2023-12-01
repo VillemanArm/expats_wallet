@@ -174,8 +174,7 @@ class Converter extends React.Component {
                                     className="converter__clear"
                                     onClick={this.clearCurrencies}
                                 >
-                                    {" "}
-                                    <ImCross />{" "}
+                                    <ImCross />
                                 </button>
                             )}
                             {this.props.lastData.length < 20 && (
@@ -197,11 +196,10 @@ class Converter extends React.Component {
                         </div>
                     </div>
                     <div
-                        className="converter__currencies"
-                        style={
+                        className={
                             this.state.isScrollbar
-                                ? { paddingRight: "0.8rem" }
-                                : { paddingRight: "0" }
+                                ? "converter__currencies webkit-padding moz-padding"
+                                : "converter__currencies"
                         }
                     >
                         {this.props.lastData.map((currency) => {

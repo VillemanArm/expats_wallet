@@ -67,11 +67,10 @@ class History extends React.Component {
                     )}
                 </div>
                 <div
-                    className="history__container"
-                    style={
+                    className={
                         this.state.isScrollbar
-                            ? { paddingRight: "1rem" }
-                            : { paddingRight: "0" }
+                            ? "history__container webkit-padding moz-padding"
+                            : "history__container"
                     }
                 >
                     {localStorage.expatsWallet &&
