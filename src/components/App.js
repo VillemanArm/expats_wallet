@@ -3,6 +3,7 @@ import History from "./History";
 import Converter from "./Converter";
 
 // TODO: реализовать адаптивную верстку
+// TODO: подключить шрифты из файла
 
 class App extends React.Component {
     constructor(props) {
