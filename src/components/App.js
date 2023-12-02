@@ -4,6 +4,7 @@ import Converter from "./Converter";
 
 // TODO: реализовать адаптивную верстку
 // TODO: подключить шрифты из файла
+// TODO: переделать подключение отступа через классы
 
 class App extends React.Component {
     constructor(props) {
@@ -66,10 +67,10 @@ class App extends React.Component {
                     sendHistoryRecord={this.sendHistoryRecord}
                     sendLastData={this.sendLastData}
                 />
-                <History
+                {/* <History
                     history={this.state.history}
                     sendHistory={this.sendHistory}
-                />
+                /> */}
             </section>
         );
     }

@@ -52,3 +52,24 @@ header
 
         svg
             fill: $background-color
+
+@media (max-width: 768px)
+    .header
+        flex-direction: column
+
+    .header__about-button
+        display: flex
+        gap: 1rem
+        align-items: center
+        align-self: end
+
+        & p
+            font-size: 1.8rem
+
+        & svg
+            width: 2rem
+            height: 2rem
+
+    .header__about
+        padding: 0 0 2rem 0
+
