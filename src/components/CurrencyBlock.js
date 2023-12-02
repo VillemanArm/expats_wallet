@@ -21,7 +21,7 @@ class CurrencyBlock extends React.Component {
                 amount = amount.replace(/\.+/, ".");
                 this.amountInput.value = "0" + amount;
                 this.currency.error = "";
-            } else if (amount.match(/\./g).length > 1) {
+            } else if (amount.match(/\./g) && amount.match(/\./g).length > 1) {
                 this.currency.error = "Remove the extra point!";
             } else this.currency.error = "Мax amount is 999 999 999.99!";
 
