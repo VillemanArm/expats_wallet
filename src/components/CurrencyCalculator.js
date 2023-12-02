@@ -3,18 +3,6 @@ import { ImArrowRight } from "react-icons/im"
 import Selector from "./Selector"
 
 class CurrencyCalculator extends React.Component {
-    resultFormat(result) {
-        if (result) {
-            if (result < 99999999) {
-                return result
-            } else {
-                return Math.round(result)
-            }
-        } else {
-            return 'result'
-        }
-    }
-
     render() {
         return (
             <div className="calculator">
@@ -31,7 +19,7 @@ class CurrencyCalculator extends React.Component {
                     }
                 </div>
                 <div className="calculator__result" >
-                    <span className="calculator__result-amount">{this.resultFormat(this.props.result)}</span>
+                    <span className="calculator__result-amount">{this.props.resultFormat(this.props.result)}</span>
                     {(this.props.result && this.props.result < 9999999) && <span className="calculator__result-currency">{this.props.targetCurrency}</span>}
                 </div>
             </div>

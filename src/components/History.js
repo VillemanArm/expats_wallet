@@ -33,9 +33,7 @@ class History extends React.Component {
     }
 
     async checkScrollbar() {
-        const converterCurrencies = document.querySelector(
-            ".history__container"
-        );
+        const converterCurrencies = document.querySelector(".history__container");
         if (
             converterCurrencies.scrollHeight > converterCurrencies.offsetHeight
         ) {
@@ -79,6 +77,7 @@ class History extends React.Component {
                                 key={record.id}
                                 record={record}
                                 del={this.delRecord}
+                                resultFormat={this.props.resultFormat}
                             />
                         ))}
                 </div>

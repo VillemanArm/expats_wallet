@@ -2,7 +2,6 @@ import React from "react";
 import History from "./History";
 import Converter from "./Converter";
 
-// TODO: реализовать адаптивную верстку
 // TODO: подключить шрифты из файла
 // TODO: переделать подключение отступа через классы
 
@@ -59,6 +58,18 @@ class App extends React.Component {
         this.setState({ history: newHistory });
     }
 
+    resultFormat(result) {
+        if (result) {
+            if (result < 99999999) {
+                return result
+            } else {
+                return Math.round(result)
+            }
+        } else {
+            return 'result'
+        }
+    }
+
     render() {
         return (
             <section className="main-block__wrapper container">
@@ -66,11 +77,13 @@ class App extends React.Component {
                     lastData={this.state.lastData}
                     sendHistoryRecord={this.sendHistoryRecord}
                     sendLastData={this.sendLastData}
+                    resultFormat={this.resultFormat}
                 />
-                {/* <History
+                <History
                     history={this.state.history}
                     sendHistory={this.sendHistory}
-                /> */}
+                    resultFormat={this.resultFormat}
+                />
             </section>
         );
     }

@@ -227,6 +227,7 @@ class Converter extends React.Component {
                     result={this.state.result}
                     editTargetCurrency={this.editTargetCurrency}
                     calculate={this.calculate}
+                    resultFormat={this.props.resultFormat}
                 />
             </div>
         );

@@ -24,4 +24,23 @@
         display: flex
         gap: 1rem
 
+@media (max-width: 768px)
+    .history-block
+        width: 100%
+        column-gap: 0.8rem
 
+        font-size: 1.8rem
+
+        &:not(:first-child)
+            margin-top: 0.8rem
+
+    .history-block__record
+        width: 26rem
+        height: 3.4rem
+        padding: 0.4rem 0.8rem
+        align-items: center
+        gap: 0.8rem
+        overflow-x: auto
+
+        &>div
+            gap: 0.8rem
