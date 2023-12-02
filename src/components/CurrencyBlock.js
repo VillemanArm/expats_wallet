@@ -62,7 +62,7 @@ class CurrencyBlock extends React.Component {
                     className="currency-block__inputs"
                     style={
                         !document.querySelector(".currency-block__del")
-                            ? { width: "46.6rem" }
+                            ? (window.innerWidth > 768 ? { width: "46.6rem" } : { width: "27.6rem" })
                             : { width: "100%" }
                     }
                 >
