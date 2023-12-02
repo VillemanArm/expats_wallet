@@ -182,7 +182,7 @@ class Converter extends React.Component {
                                     className="converter__add"
                                     style={
                                         this.state.isScrollbar
-                                            ? { marginRight: "1.8rem" }
+                                            ? { marginRight: "1.6rem" }
                                             : { marginRight: "0" }
                                     }
                                     onClick={async (event) => {

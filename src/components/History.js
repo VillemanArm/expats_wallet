@@ -53,7 +53,7 @@ class History extends React.Component {
                             className="history__clear"
                             style={
                                 this.state.isScrollbar
-                                    ? { marginRight: "1.8rem" }
+                                    ? { marginRight: "1.6rem" }
                                     : { marginRight: "0" }
                             }
                             onClick={() => {

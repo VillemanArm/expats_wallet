@@ -3,7 +3,6 @@ import History from "./History";
 import Converter from "./Converter";
 
 // TODO: подключить шрифты из файла
-// TODO: переделать подключение отступа через классы
 
 class App extends React.Component {
     constructor(props) {
