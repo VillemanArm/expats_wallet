@@ -20,7 +20,10 @@ class CurrencyCalculator extends React.Component {
                 </div>
                 <div className="calculator__result" >
                     <span className="calculator__result-amount">{this.props.resultFormat(this.props.result)}</span>
-                    {(this.props.result && this.props.result < 9999999) && <span className="calculator__result-currency">{this.props.targetCurrency}</span>}
+                    {window.innerWidth > 768 
+                        ? (this.props.result && this.props.result < 9999999) && <span className="calculator__result-currency">{this.props.targetCurrency}</span>
+                        : this.props.result  && <span className="calculator__result-currency">{this.props.targetCurrency}</span>
+                    }
                 </div>
             </div>
         )
