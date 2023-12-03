@@ -39,7 +39,7 @@ class Converter extends React.Component {
 
     getRates() {
         const base = "USD";
-        const currencies = "RUB,EUR,USD,AMD,GEL,CNY";
+        const currencies = "RUB,EUR,USD,AMD,GEL,CNY, BYN, KZT, MNT, UZS, AZN, TRY, UZS";
         const resolution = "1h";
         const url = `https://api.fxratesapi.com/latest?base=${base}&currencies=${currencies}&resolution=${resolution}&amount=1&places=6&format=json`;
 
